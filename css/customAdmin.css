@@ -1,0 +1,242 @@
+/*
+navbar-default personalizada en:
+http://work.smarchal.com/twbscolor/
+
+*/
+:root {
+  --color-1: #0a194e;
+  --color-2: #656194;
+  --color-3: #f7f7f7;
+  --color-4: #5a5cd2;
+}
+
+
+.barra-fija{
+  position: fixed;
+  width: 100%;
+  top: 0; 
+  z-index: 1000;
+}
+
+.panel-success{
+  background-color:var(--color-3);
+  font-size: 12px;
+  border-color: var(--color-1);     
+}
+input[class*='ingreso']{
+        width: 70px;
+}
+input[class*='total']{
+        width: 80px;
+} 
+.panel-heading{
+  background-color:var(--color-1);
+  font-size: 12px;
+  border-color: var(--color-1);     
+}
+
+.btn-info{
+    background-color: var(--color-1);
+    border-color: var(--color-3);
+}
+
+.btn-info:hover{  
+  background-color:var(--color-2);
+  border-color: var(--color-2);   
+}
+.btn-info:active{  
+  background-color:var(--color-2);
+  border-color: var(--color-2);   
+}
+
+
+.btn-success{
+  background-color:var(--color-1);
+  font-size: 12px;
+  border-color: var(--color-1);   
+}
+
+.btn-success:hover{
+  background-color:var(--color-2);
+  font-size: 12px;
+  border-color: var(--color-3);   
+}
+.btn-success:active:hover{
+  background-color:var(--color-2);
+  font-size: 12px;
+  border-color: var(--color-3);   
+}
+
+/*color al presionar*/
+.btn-success:active:focus{
+  background-color:var(--color-2);
+  font-size: 12px;
+  border-color: var(--color-3);   
+}
+.btn-success:focus{
+  background-color:var(--color-2);
+  font-size: 12px;
+  border-color: var(--color-3);   
+}
+/*color al presionar*/
+
+
+.navbar-default {
+  background-color:var(--color-1);
+  font-size: 12px;
+  border-color: var(--color-1);
+}
+.navbar-default .navbar-brand {
+  color: var(--color-3);;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: var(--color-3);;
+}
+.navbar-default .navbar-text {
+  color: var(--color-3);;
+}
+.navbar-default .navbar-nav > li > a {
+  color: var(--color-3);;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: var(--color-3);;
+}
+
+/*colores de la pagina activa*/
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: var(--color-3);
+  background-color: var(--color-2);
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: var(--color-1);
+  background-color: var(--color-1);
+}
+.navbar-default .navbar-toggle {
+  border-color: var(--color-1);
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: var(--color-1);
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: var(--color-3);
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: var(--color-3);
+}
+.navbar-default .navbar-link {
+  color: var(--color-3);
+}
+.navbar-default .navbar-link:hover {
+  color: var(--color-1);
+}
+
+@media (max-width: 767px) {
+
+  .barra-fija{
+  position: relative;
+  width: 100%;
+  }
+    
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: var(--color-1);
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: var(--color-2);
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: var(--color-1);
+    background-color: var(--color-1);
+  }
+}
+
+.thumb-name {
+    font-weight: bold;
+    display: block;
+}
+.stock-counter {
+    opacity: 0.8;
+    position: absolute;
+    margin-top: 5px;
+    right: 21px;
+}
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-3);;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #777;
+    border-radius: 10px;
+}
+
+.low-stock-alert {
+    opacity: 0.8;
+    position: absolute;
+    margin-top: 5px;
+    left: 21px;
+    color: red;
+}
+.item-quantity {
+    font-size: 40px;
+}
+.current-stock {
+    font-size: 16px;
+    font-weight: bold;
+}
+.item-number {
+    font-size: 20px;
+}
+.item-title {
+    font-size: 23px;
+    font-weight: bold;
+}
+.item-price {
+    font-size: 23px;
+    font-weight: bold;
+	color: var(--color-1);
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: var(--color-3);
+    cursor: default;
+    background-color: var(--color-1);
+    border-color: var(--color-3);;
+}
+a {
+	color: var(--color-1);
+}
+
+.no-border {
+    border: 0;
+    box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+}
+
+/*CheckBox*/
+*:focus {
+  outline: none !important;
+}
+
+.input-group-btn .btn {
+  width: 100%;
+}
+
+:not(:first-child):not(:last-child).input-group-btn.button-checkbox .btn {
+  border-radius: 0px;
+}
+

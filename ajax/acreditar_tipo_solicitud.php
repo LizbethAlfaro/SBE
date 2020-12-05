@@ -1,0 +1,87 @@
+<?php
+include('is_logged_admin.php');//Archivo verifica que el usario que intenta acceder a la URL esta logueado
+		
+	/*Inicia validacion del lado del servidor*/
+        if (empty($_POST['tipo_sol'])) {
+           $errors[] = "Debe seleccionar un tipo de solicitud";   
+        }else if (empty($_POST['rut_estudiante'])) {
+           $errors[] = "Rut estudiante vacio";
+        }else{
+		/* Connect To Database*/
+		require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
+		require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
+                include '../Clases/Declaracion.php';
+                include '../Clases/Solicitud.php';
+                include '../Clases/Log.php';
+		// escaping, additionally removing everything that could be (html/javascript-) code
+                $rut_estudiante         = $_POST["rut_estudiante"];
+                $tipo                   = $_POST["tipo_sol"];
+                $estado=2;//en revision
+                $condicion = "";
+                
+                 $query= Solicitud::recuperarSolicitud($rut_estudiante,$condicion,$con);
+                
+                 
+                 if($query){
+                 $comprobar = sqlsrv_num_rows($query);    
+                 }else{
+                 $comprobar=0;    
+                 }
+                 
+                 if($comprobar>0){                
+                 $query= Solicitud::editarSolicitud($rut_estudiante,$estado,$tipo,$con);
+                 if ($query) {
+                        $messages[] = "<br> Tipo de solicitud actualizado con éxito.";
+                               $accion = "Edito tipo de solicitud a $rut_estudiante";
+                    } else {
+                        $errors[] = "<br> Error al actualizar tipo de solicitud ";
+                         $accion = "Error actualizacion de tipo de solicitud a $rut_estudiante";
+                    }
+                 }else{            
+                 $query= Solicitud::registrarSolicitud($rut_estudiante,$estado,$tipo,$con);
+                  if ($query) {
+                        $messages[] = "<br> Tipo de solicitud registrado con éxito.";
+                         $accion = "Registro tipo de solicitud a $rut_estudiante";
+                    } else {
+                        $errors[] = "<br> Error al registrar tipo";
+                         $accion = "Error de registro tipo de solicitud a $rut_estudiante";
+                    }
+                 }
+                
+          
+                 Log::registrarLog($_SESSION['rut_asistente'],$_SESSION['nombre_asistente']." ".$_SESSION['apellido_asistente'],$accion,$con);
+                
+                 }
+
+		
+		
+		if (isset($errors)){
+			
+			?>
+			<div class="alert alert-danger" role="alert">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Error!</strong> 
+					<?php
+						foreach ($errors as $error) {
+								echo $error;
+							}
+						?>
+			</div>
+			<?php
+			}
+			if (isset($messages)){
+				
+				?>
+				<div class="alert alert-success" role="alert">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>¡Bien hecho!</strong>
+						<?php
+							foreach ($messages as $message) {
+									echo $message;
+								}
+							?>
+				</div>
+				<?php
+			}
+
+?>

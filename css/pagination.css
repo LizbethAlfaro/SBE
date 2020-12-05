@@ -1,0 +1,36 @@
+/*
+This CSS is used to force new pages at the appropriate points
+    <div class="page">Page 1 content here</div>
+    <div class="page">Page 2 content here</div>
+*/
+.page {
+    page-break-after: always;
+}
+
+/*
+This avoids page breaks inside a box:
+    <div class="instructions">Text here won't be split up</div>
+*/
+.instructions {
+    page-break-inside: avoid;
+}
+
+/*
+This forces the instructions box to sit right at the bottom of the page:
+    <div class="page">
+        <div class="push-instructions">
+            Content...
+        </div>
+        <div class="instructions">
+            Instructions...
+        </div>
+    </div>
+Note that this only works if the height of the instructions box is known in
+advance. I obtained the exact height by trial-and-error. I couldn't find a way
+to stick it to the bottom of the page when the height is variable.
+When the page content is too long the instructions box is automatically moved
+to the top of the next page.
+*/
+.push-instructions {
+    min-height: 180mm;
+}
