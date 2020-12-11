@@ -3,6 +3,25 @@
 class UMAS
 {
 
+    function TNEPRUEBA($con)
+    {
+
+        $sSelect = " SELECT CL.CODCLI AS RUT ,CL.NOMBRE,CL.PATERNO,CL.MATERNO ";
+
+
+        $sFrom =   " FROM [CIISA].[UmasnetPruebas].[dbo].MT_CLIENT CL ";
+
+        $sWhere = " WHERE CL.CODCLI='19562183'";
+           
+
+        $sql = " $sSelect $sFrom $sWhere ";
+
+        $result = sqlsrv_query($con, $sql, array(), array("Scrollable" => 'static'));
+
+     print_r($sql);
+        return $result;
+    }
+
     function recuperarEstudiante($rut, $con)
     {
 
