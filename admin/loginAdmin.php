@@ -30,7 +30,7 @@ if ($login->isUserLoggedInAdmin() == true) {
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title> Administracion UFE | Login </title>
+  <title> Administracion SBE | Login </title>
   
         <!-- Jquery 2.2.4 -->
         <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>

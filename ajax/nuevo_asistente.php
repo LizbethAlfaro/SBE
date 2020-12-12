@@ -1,6 +1,8 @@
 <?php
+/*
 include('is_logged_admin.php'); //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 // checking for minimum PHP version
+*/
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
 } else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
