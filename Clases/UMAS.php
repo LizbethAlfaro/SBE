@@ -6,19 +6,21 @@ class UMAS
     function TNEPRUEBA($con)
     {
 
-        $sSelect = " SELECT CL.CODCLI AS RUT ,CL.NOMBRE,CL.PATERNO,CL.MATERNO ";
+        $sSelect = " SELECT c.CIUDADACT, a.CODSEDE, a.JORNADA, c.CODCLI, c.DIG, c.NOMBRE, c.PATERNO, c.MATERNO,  CONVERT(VARCHAR, c.FECNAC, 20) AS FECHA , car.NOMBRE_L, c.MAIL ";
 
 
-        $sFrom =   " FROM [CIISA].[UmasnetPruebas].[dbo].MT_CLIENT CL ";
+        $sFrom =   " FROM [CIISA].[UmasnetPruebas].[dbo].mt_client c, [CIISA].[UmasnetPruebas].[dbo].MT_ALUMNO a,[CIISA].[UmasnetPruebas].[dbo].MT_CARRER car";
 
-        $sWhere = " WHERE CL.CODCLI='19562183'";
+        $sWhere = " WHERE a.RUT=c.CODCLI
+        and a.CODCARPR=car.CODCARR 
+        and A.ANO_MAT=2019 ";
            
 
         $sql = " $sSelect $sFrom $sWhere ";
 
         $result = sqlsrv_query($con, $sql, array(), array("Scrollable" => 'static'));
 
-     print_r($sql);
+    // print_r($sql);
         return $result;
     }
 

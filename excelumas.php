@@ -41,16 +41,9 @@ include './Clases/UMAS.php';
  
 
  
-// header('Content-type:application/xls; charset=utf-8 ');
-
- 
-//header("Content-Type: application/vnd.ms-excel charset=iso-8859-1");
-
- 
- 
-
- 
-//header('Content-Disposition: attachment; filename=atenciones.xls');
+header('Content-type:application/xls; charset=utf-8 ');
+header("Content-Type: application/vnd.ms-excel charset=iso-8859-1");
+header('Content-Disposition: attachment; filename=atenciones.xls');
 
  
  
@@ -118,19 +111,17 @@ if ($numrows>0){
 
  
  
-<td>RUT </td>
-
- 
-<td>NOMBRE</td>
-
- 
-<td>PATERNO</td>
-
-<td>MATERNO</td>
-
-
- 
- 
+<td>CIUDADACT </td>
+<td>CODSEDE </td>
+<td>JORNADA </td>
+<td>CODCLI </td>
+<td>DIG </td>
+<td>NOMBRE </td>
+<td>PATERNO </td>
+<td>MATERNO </td>
+<td>FECNAC </td>
+<td>NOMBRE_L </td>
+<td>MAIL </td>
 
  
 </tr>
@@ -142,16 +133,17 @@ if ($numrows>0){
 while ($row=sqlsrv_fetch_array($result)){
 
  
-$RUT = $row['RUT'];
-
- 
+$CIUDADACT = $row['CIUDADACT'];
+$CODSEDE = $row['CODSEDE'];
+$JORNADA = $row['JORNADA'];
+$CODCLI = $row['CODCLI'];
+$DIG = $row['DIG'];
 $NOMBRE = $row['NOMBRE'];
-
- 
 $PATERNO = $row['PATERNO'];
-
- 
 $MATERNO = $row['MATERNO'];
+$FECNAC = date('d-m-Y', strtotime($row['FECHA']));
+$NOMBRE_L = $row['NOMBRE_L'];
+$MAIL = $row['MAIL'];
 
  
 
@@ -169,20 +161,19 @@ $MATERNO = $row['MATERNO'];
 
  
  
+<td><?php echo $CIUDADACT; ?></td>
+<td><?php echo $CODSEDE; ?></td>
+<td><?php echo $JORNADA; ?></td>
+<td><?php echo $CODCLI; ?></td>
+<td><?php echo $DIG; ?></td>
+<td><?php echo $NOMBRE; ?></td>
+<td><?php echo $PATERNO; ?></td>
+<td><?php echo $MATERNO; ?></td>
+<td><?php echo $FECNAC; ?></td>
+<td><?php echo $NOMBRE_L; ?></td>
+<td><?php echo $MAIL; ?></td>
 
  
-<td><?php echo $RUT; ?></td>
-
- 
-<td><?php echo Scape::ms_escape_string($NOMBRE); ?></td>
-
- 
-<td><?php echo Scape::ms_escape_string($PATERNO); ?></td>
-
-<td><?php echo Scape::ms_escape_string($MATERNO); ?></td>
-
- 
-
 
  
 
