@@ -1,4 +1,8 @@
 <?php
+
+header('Location: ./admin/loginAdmin.php');
+
+/*
 // Verifica version minima de PHP
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     exit("No puede correr en versiones inferiores a 5.3.7 !");
@@ -454,3 +458,4 @@ $(".alert alert-info").html("");
 }
 
 }
+*/

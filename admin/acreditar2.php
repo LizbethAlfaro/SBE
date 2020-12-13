@@ -19,7 +19,7 @@ if (!isset($_SESSION['user_login_admin_status']) AND $_SESSION['user_login_admin
         
        
 
-	$title=" Departamentos | Owl Evaluation";
+	$title=" Datos personales";
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -67,10 +67,10 @@ class LoginAdmin
 
                     // using PHP 5.5's password_verify() function to check if the provided password fits
                     // the hash of that user's password
-                     
+                    // var_dump($result_row);
                     
-                    if (password_verify($_POST['user_password'], $result_row['clave_asistente'])) {
-               
+                  if (password_verify($_POST['user_password'], $result_row['clave_asistente'])) {
+            //    if ($result_row) {
                         // write user data into PHP SESSION (a file on your server)
                         $_SESSION['rut_asistente']         = $result_row['rut_asistente'] ;
 			$_SESSION['nombre_asistente']      = $result_row['nombre_asistente'] ;
@@ -84,7 +84,7 @@ class LoginAdmin
                         Log::registrarLog($_SESSION['rut_asistente'],$_SESSION['nombre_asistente']." ".$_SESSION['apellido_asistente'],$accion,$con);
 
                     } else {
-                        $this->errors[] = "Usuario y/o contraseña no coinciden.";
+                        $this->errors[] = "Usuario y/o contraseña no coinciden.".$result_row['rut_asistente'];
                          $accion = "Error de usuario o contraseña ";
                          Log::registrarLog(getRealIP(), php_uname(),$accion,$con);
                     }
