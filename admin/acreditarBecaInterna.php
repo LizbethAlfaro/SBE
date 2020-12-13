@@ -78,12 +78,13 @@ include '../Autenticacion/FormatoRut.php';
 
 
 $rut_2 = sinPuntosGuionRut($rut);
+$rut_3 = sinPuntosRut($rut);
 $condicion = ""; //where...
 
 
 
 
-$estudianteQuery = UMAS::recuperarEstudiante($rut_2, $con);
+$estudianteQuery = UMAS::recuperarEstudiante($rut_3, $con);
 
 $estudianteArreglo;
 while ($estudianteCursor = sqlsrv_fetch_array($estudianteQuery)) {
@@ -92,17 +93,18 @@ var_dump($estudianteQuery);
     $estudianteArreglo = array(
         "rut"       => $estudianteCursor['RUT'],
         "nombre"    => $estudianteCursor['NOMBRE'],
-        "apellido"  => $estudianteCursor['PATERNO'],
-        "fechaNac"  => $estudianteCursor['FECNAC'],
+        "apellido"  => $estudianteCursor['PATERNO'].' '.$estudianteCursor['MATERNO'],
+        "fechaNac"  => $estudianteCursor['FECHA'],
         "genero"    => $estudianteCursor['SEXO'],
-        "fono"      => $estudianteCursor['FONO_ACT'],
-        "movil"     => $estudianteCursor['MOVIL'],
+        "direccion"  => $estudianteCursor['DIRACTUAL'],
         "mail"      => $estudianteCursor['MAIL_INST'],
-        "fechaIng"  => $estudianteCursor['ANO_MAT'],
+        "fechaIng"  => $estudianteCursor['ANO'],
         "carrera"   => $estudianteCursor['NOMBRE_C'],
         "jornada"   => $estudianteCursor['JORNADA'],
     );
 }
+
+
 
 
 
@@ -341,9 +343,7 @@ $aprobacion= intval($aprobacionArreglo['porcentaje']);
                                 <h5>IDENTIFICACION DEL ESTUDIANTE</h5>  
                             </div> 
                             <div class="panel-body table-responsive">
-                                <div class="panel">
-                                    <button type="button" class="btn btn-danger btn-block guardar_datos" onclick="informeBecaInterna()" >Emitir Informe</button>
-                                </div>
+                               
                                 
                                 <table border="0" class="table">
                                     <tbody>
@@ -364,34 +364,16 @@ $aprobacion= intval($aprobacionArreglo['porcentaje']);
                                             <td colspan="2"><input name="fechaIng" value="<?php echo $estudianteArreglo['fechaIng']; ?>"></td>
                                             <td><label>FECHA&nbspDE&nbspNACIMIENTO:</label></td>
                                             <td colspan="2"><input name="fechaNac" value="<?php echo date('d-m-Y', strtotime($estudianteArreglo['fechaNac'])); ?>"></td>
-                                            <td><label>TIPO&nbspDE&nbspSOLICITUD:</label></td>
-                                            <td>
-                                                <input value="<?php echo $tipoArreglo['tipo']; ?>">
-                                                <input type="hidden" name="tipo_sol" value="<?php echo $tipoArreglo['id_tipo']; ?>">
-                                            </td>
+                                          
                                         </tr>
                                         <tr>
                                             <td><label>DIRECCION :</label></td>
                                             <td colspan="5"><input name="direccion" value="<?php echo $estudianteArreglo['direccion']; ?>"></td>
-                                            <td><label>N° :</label></td>
-                                            <td><input name="numero" value="<?php echo $estudianteArreglo['numero']; ?>"></td>
+                                         
                                         </tr>
+                                        
                                         <tr>
-                                            <td><label>DPTO/CASA :</label></td>
-                                            <td><input name="departamento" value="<?php echo $estudianteArreglo['departamento']; ?>"></td>
-                                            <td><label>VILLA :</label></td>
-                                            <td><input name="villa" value="<?php echo $estudianteArreglo['villa']; ?>"></td>
-                                            <td><label>COMUNA :</label></td>
-                                            <td><input name="comuna" value="<?php echo $estudianteArreglo['comuna']; ?>"></td>
-                                            <td><label>REGION :</label></td>
-                                            <td><input name="region" value="<?php echo $estudianteArreglo['region']; ?>"></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label>FONO (CASA):</label></td>
-                                            <td><input name="fono" value="<?php echo $estudianteArreglo['fono']; ?>"></td>
-                                            <td><label>CELULAR:</label></td>
-                                            <td><input name="movil" value="<?php echo $estudianteArreglo['movil']; ?>"></td>
-                                            <td><label>E-MAIL :</label></td>
+                                        <td><label>MAIL :</label></td>
                                             <td colspan="3"><input name="mail" value="<?php echo $estudianteArreglo['mail']; ?>"></td>
                                         </tr>
 <!--                                        <tr>
@@ -1081,16 +1063,8 @@ $aprobacion= intval($aprobacionArreglo['porcentaje']);
                                             <th>
                                             <select class='form-control' name='certificado' id='certificado' onchange="califica(<?php echo $beca;?>,<?php echo $renoPost;?>)" required>
 
-                                    <?php
-                                    $certificado = Certificado::recuperarCertificado($con);
+                                  
 
-
-                                    while ($rwcertificado = sqlsrv_fetch_array($certificado)) {
-                                        ?>
-                                        <option value="<?php echo $rwcertificado['id_certificado']; ?>"><?php echo $rwcertificado['descripcion_certificado']; ?></option>			
-                                        <?php
-                                    }
-                                    ?>
 
                                     </select>
                                                 </th>
@@ -1178,21 +1152,7 @@ $aprobacion= intval($aprobacionArreglo['porcentaje']);
         <script type="text/javascript" src="../js/funciones/formulario.js"></script>
         <script type="text/javascript" src="../js/extras/CalificaBeca.js"></script>
         
-        <script type="text/javascript">
-        $(document).ready(function () {
-        califica(<?php echo $beca;?>,<?php echo $renoPost;?>);
-        });    
-        $('input').attr('readonly', true)
-        $('#psu').attr('readonly', false)
-        $('#aprobacion_calificacion').attr('readonly', false)
-//        $('#aa').attr('readonly', false) 
-//        $('#na').attr('readonly', false) 
-//        $('#ar').attr('readonly', false) 
-//        $('#sf').attr('readonly', false)
-//        
-//        $('#e4').attr('readonly', false)
-//        $('#cet').attr('readonly', false) 
-        </script>
+      
     </body>
 </html>
 <?php 

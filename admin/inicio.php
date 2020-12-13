@@ -1,10 +1,8 @@
 <?php
-// Verifica version minima de PHP
-if (version_compare(PHP_VERSION, '5.3.7', '<')) {
-    exit("No puede correr en versiones inferiores a 5.3.7 !");
-} else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-    // la libreria de contraseña no funciona en versiones inferiores
-    require_once("libraries/password_compatibility_library.php");
+session_start();
+if (!isset($_SESSION['user_login_admin_status']) AND $_SESSION['user_login_admin_status'] != 1) {
+    header("location: loginAdmin.php");
+    exit;
 }
 
 // incluye  la coneccion a BD
@@ -13,17 +11,7 @@ require_once ("../config/conexion.php");//Contiene funcion que conecta a la base
 // Abre la  clase login en donde se crearan las variables de session
 require_once("../Autenticacion/LoginAdmin.php");
 
-
-// se crea el objeto login para ingresar y salir de la session de manera simple
-$login = new LoginAdmin();
-
-// evalua si se logea correctamente
-if ($login->isUserLoggedInAdmin() == true) {
-    //si es que se logea en direcciona a la url
-   header("location: inicio.php");
-
-} else {
-    // si no se logea direcciona envia mensaje de error
+  // si no se logea direcciona envia mensaje de error
     ?>
 	<!DOCTYPE html>
 <html lang="es">
@@ -39,16 +27,13 @@ if ($login->isUserLoggedInAdmin() == true) {
         <!-- CSS  -->
         <link href="../css/loginAdmin.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
-          <?php
-             
-				// muestra posibles errores
-				if (isset($con)) {
-    
-						?>
-                                                <div class="alert alert-dismissible alert-dismissible" role="alert">
-                                                    <strong>Estado Conexion :</strong> <?php echo $mensaje ?>
-						
-						</div>
+
+<?php
+		include("./navbarAdmin.php");
+		include("./headAdmin.php");
+  
+     ?>
+
 	
 <body>
 
@@ -56,42 +41,12 @@ if ($login->isUserLoggedInAdmin() == true) {
         <div class="card card-container">
             <img id="profile-img" class="profile-img-card" src="../img/logo-icon.png" />
             <p id="profile-name" class="profile-name-card"></p>
-            <form method="post" accept-charset="utf-8" action="loginAdmin.php" name="loginform" autocomplete="off" role="form" class="form-signin">
-			<?php
-				// muestra posibles errores
-				if (isset($login)) {
-					if ($login->errors) {
-						?>
-						<div class="alert alert-danger alert-dismissible" role="alert">
-						    <strong>Error!</strong> 
-						
-						<?php 
-						foreach ($login->errors as $error) {
-							echo $error;
-						}
-						?>
-						</div>
-						<?php
-					}
-					if ($login->messages) {
-						?>
-						<div class="alert alert-success alert-dismissible" role="alert">
-						    <strong>Aviso!</strong>
-						<?php
-						foreach ($login->messages as $message) {
-							echo $message;
-						}
-						?>
-						</div> 
-						<?php 
-					}
-				}
-				?>
+            <form method="get" accept-charset="utf-8" action="acreditarBecaInterna.php" name="loginform" autocomplete="off" role="form" class="form-signin">
   
                 <span class="error-rut"></span>  
                 <input class="form-control" placeholder="Usuario" name="user_name" id="rut" type="text"  autofocus="" required maxlength="12" onkeyup="validar(this.id)">
                 <input class="form-control" placeholder="Contraseña" name="user_password" id="contraseña" type="password"  autocomplete="off" required>
-                <button type="submit" class="btn btn-lg btn-success btn-block btn-signin" name="login" id="submit">Iniciar Sesión</button>
+                <button type="submit" class="btn btn-lg btn-success btn-block btn-signin" name="login" id="submit">Buscar Alumno</button>
             </form><!-- /form -->
  
         </div><!-- /card-container -->
@@ -106,7 +61,5 @@ if ($login->isUserLoggedInAdmin() == true) {
   <script type="text/javascript" src="../js/estudiante_page.js"></script>
 </html>
 
-	<?php
-}
 
-}
+

@@ -1,6 +1,5 @@
 	<?php
-		if (isset($title))
-		{
+
         $tipo = $_SESSION['tipo_asistente'];           
 	?>
 <nav class="navbar navbar-default">
@@ -43,6 +42,3 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-	<?php
-		}
-	?>
