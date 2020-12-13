@@ -29,7 +29,7 @@ class UMAS
 
         $sSelect = " SELECT   [RUT],[DIG],MT_C.[CODCLI],CA_U.[us_consuser],CA_U.[us_password]
                                ,[NOMBRE],[MATERNO],[PATERNO],[NOMBRE_C],MT_A.[JORNADA],MT_A.[ANO],[ESTACAD],[SEXO],[FECNAC],[DIRACTUAL],MT_C.NACIONALIDAD ";
-        $sTable  = " FROM [UMAS].[UGM].[dbo].[MT_ALUMNO] MT_A,[CIISA].[UmasnetPruebas].[dbo].[MT_CLIENT] MT_C,[CIISA].[UmasnetPruebas].[dbo].[ca_usuarios] CA_U ,[CIISA].[UmasnetPruebas].[dbo].[MT_CARRER] MT_CAR ";
+        $sTable  = " FROM [CIISA].[UmasnetPruebas].[dbo].[MT_ALUMNO] MT_A,[CIISA].[UmasnetPruebas].[dbo].[MT_CLIENT] MT_C,[CIISA].[UmasnetPruebas].[dbo].[ca_usuarios] CA_U ,[CIISA].[UmasnetPruebas].[dbo].[MT_CARRER] MT_CAR ";
 
         $sWhere = "  WHERE MT_A.[RUT] = MT_C.[CODCLI] AND ([ESTACAD] = 'VIGENTE' OR [ESTACAD] = 'ELIMINADO' OR [ESTACAD] = 'SUSPENDIDO') AND CA_U.[us_consuser] = ([RUT]+[DIG]) AND MT_CAR.[CODCARR] = MT_A.[CODCARPR]"
             //    $sWhere = "  WHERE MT_A.[RUT] = MT_C.[CODCLI] AND ([ESTACAD] = 'VIGENTE' OR [ESTACAD] = 'SUSPENDIDO') AND CA_U.[us_consuser] = ([RUT]+[DIG]) AND MT_CAR.[CODCARR] = MT_A.[CODCARPR]"
@@ -39,7 +39,7 @@ class UMAS
 
         $result = sqlsrv_query($con, $sql, array(), array("Scrollable" => 'static'));
 
-        //     print_r($sql);
+             print_r($sql);
         return $result;
     }
 
