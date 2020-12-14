@@ -57,7 +57,7 @@ class UMAS
 
         $result = sqlsrv_query($con, $sql, array(), array("Scrollable" => 'static'));
 
-           print_r($sql);
+      //     print_r($sql);
         return $result;
     }
 

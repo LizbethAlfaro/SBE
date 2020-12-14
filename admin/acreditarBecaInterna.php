@@ -92,14 +92,14 @@ while ($estudianteCursor = sqlsrv_fetch_array($estudianteQuery)) {
 //var_dump($estudianteQuery);
     $estudianteArreglo = array(
         "rut"       => $estudianteCursor['RUT'],
-        "nombre"    => $estudianteCursor['NOMBRE'],
-        "apellido"  => $estudianteCursor['PATERNO'].' '.$estudianteCursor['MATERNO'],
+        "nombre"    => SCAPE::ms_escape_string($estudianteCursor['NOMBRE']),
+        "apellido"  => SCAPE::ms_escape_string($estudianteCursor['PATERNO']).' '.SCAPE::ms_escape_string($estudianteCursor['MATERNO']),
         "fechaNac"  => $estudianteCursor['FECHA'],
         "genero"    => $estudianteCursor['SEXO'],
-        "direccion"  => $estudianteCursor['DIRACTUAL'],
+        "direccion"  => SCAPE::ms_escape_string($estudianteCursor['DIRACTUAL']),
         "mail"      => $estudianteCursor['MAIL_INST'],
         "fechaIng"  => $estudianteCursor['ANO'],
-        "carrera"   => $estudianteCursor['NOMBRE_C'],
+        "carrera"   => SCAPE::ms_escape_string($estudianteCursor['NOMBRE_C']),
         "jornada"   => $estudianteCursor['JORNADA'],
     );
 }

@@ -1,14 +1,10 @@
 <?php
-/*
+
 	session_start();
 if (!isset($_SESSION['user_login_admin_status']) AND $_SESSION['user_login_admin_status'] != 1) {
     header("location: loginAdmin.php");
     exit;
 }
-if($_SESSION['tipo_asistente'] < 2){
-header('location: horarioPersonal.php');    
-}
-*/
 	
 	/* Connect To Database*/
 	require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos

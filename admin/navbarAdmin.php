@@ -30,8 +30,9 @@
       <?php
    //  }
       ?> 
-          <li class="<?php if (isset($active_resumen_atencion)) {echo $active_resumen_atencion;}?>"><a href="AcreditarBecaInterna.php"><i  class='glyphicon glyphicon-copy'></i>Datos Personales</a></li>
+          <li class="<?php if (isset($active_resumen_atencion)) {echo $active_resumen_atencion;}?>"><a href="inicio.php"><i  class='glyphicon glyphicon-copy'></i>Inicio</a></li>
           <li class="<?php if (isset($active_acreditar)) {echo $active_acreditar;}?>"><a href="../excelumas.php"><i  class='glyphicon glyphicon-copy'></i>Extraer Excel</a></li>
+          <li class="<?php if (isset($active_acreditar)) {echo $active_acreditar;}?>"><a href="asistentes.php"><i  class='glyphicon glyphicon-copy'></i>Crear Usuarios</a></li>
         
          
        </ul>
