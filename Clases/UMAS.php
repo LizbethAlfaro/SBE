@@ -44,6 +44,23 @@ class UMAS
     }
 
 
+    function PORCENTAJE_APROBACION($rut, $con)
+    {
+
+        $sSelect = " SELECT TOP 1 ben.DESCRIPCION as NOMBRE, pos.PORC_APR ";
+        $sFrom = " FROM [CIISA].[UmasnetPruebas].[dbo].MT_POSBEN pos, [CIISA].[UmasnetPruebas].[dbo].mt_beneficio ben  ";
+        $sWhere = " WHERE pos.CODCLI ='$rut' 
+        AND POS.CODBEN=BEN.CODBEN 
+        ORDER BY FECAPROB DESC ";
+
+        $sql = " $sSelect $sFrom $sWhere ";
+
+        $result = sqlsrv_query($con, $sql, array(), array("Scrollable" => 'static'));
+
+           print_r($sql);
+        return $result;
+    }
+
     function recuperarEstudiantePregrado($rut, $con)
     {
 
@@ -437,20 +454,7 @@ class UMAS
         return $result;
     }
 
-    function PORCENTAJE_APROBACION($rut, $con)
-    {
 
-        $sSelect = " SELECT  [PORC_APR] ";
-        $sFrom = " FROM [CIISA].[UmasnetPruebas].[dbo].MT_POSBEN  ";
-        $sWhere = " WHERE CODCLI ='$rut'";
-
-        $sql = " $sSelect $sFrom $sWhere ";
-
-        $result = sqlsrv_query($con, $sql, array(), array("Scrollable" => 'static'));
-
-        //    print_r($sql);
-        return $result;
-    }
 
     function NEM($rut, $con)
     {

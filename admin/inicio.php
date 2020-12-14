@@ -39,13 +39,11 @@ require_once("../Autenticacion/LoginAdmin.php");
 
  <div class="container">
         <div class="card card-container">
-            <img id="profile-img" class="profile-img-card" src="../img/logo-icon.png" />
-            <p id="profile-name" class="profile-name-card"></p>
+
             <form method="get" accept-charset="utf-8" action="acreditarBecaInterna.php" name="loginform" autocomplete="off" role="form" class="form-signin">
   
                 <span class="error-rut"></span>  
-                <input class="form-control" placeholder="Usuario" name="user_name" id="rut" type="text"  autofocus="" required maxlength="12" onkeyup="validar(this.id)">
-                <input class="form-control" placeholder="Contraseña" name="user_password" id="contraseña" type="password"  autocomplete="off" required>
+                <input class="form-control" placeholder="Usuario" name="rut" id="rut" type="text"  autofocus="" required maxlength="12" onkeyup="validar(this.id)">
                 <button type="submit" class="btn btn-lg btn-success btn-block btn-signin" name="login" id="submit">Buscar Alumno</button>
             </form><!-- /form -->
  
