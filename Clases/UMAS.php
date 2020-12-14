@@ -3,6 +3,56 @@
 class UMAS
 {
 
+/* 
+
+SELECT DISTINCT 
+'13' AS REGION,'REPUBLICA' AS SEDE,
+ISNULL((SELECT REPLACE(vch_NombreCarr,'CONTINUIDAD','')  FROM [CIISA].[Ministerio].[dbo].[tbl_NombreCarreras] WHERE A.CODCARPR=vch_CodCarrUmas),'S  C') AS 'CARRERA',
+  CASE   
+      WHEN A.JORNADA = 'D' OR A.JORNADA= 'V' THEN UPPER (J.DESCRIPCION)
+	  WHEN A.JORNADA = 'O' THEN 'VESPERTINA'
+      ELSE 'S J'
+   END AS 'JORNADA',
+    '162' AS RBD, C.CODCLI AS RUT, C.DIG,
+C.PATERNO, C.MATERNO,
+CASE  
+WHEN (left(rtrim(ltrim(C.NOMBRE)), CHARINDEX(' ', C.NOMBRE))) = '' THEN (substring(C.NOMBRE, CHARINDEX(' ', C.NOMBRE)+1, len(C.NOMBRE)-(CHARINDEX(' ', C.NOMBRE)-1))) -- CUANDO ESTE VACIO MUESTRA EL SEGUNDO NOMBRE
+WHEN (left(rtrim(ltrim(C.NOMBRE)), CHARINDEX(' ', C.NOMBRE))) != '' THEN (left(rtrim(ltrim(C.NOMBRE)), CHARINDEX(' ', C.NOMBRE))) -- CUANDO NO SEA VACIO MUESTRA EL PRIMER NOMBRE
+END 'PRIMER NOMBRE',
+CASE
+WHEN (substring(C.NOMBRE, CHARINDEX(' ', C.NOMBRE)+1, len(C.NOMBRE)-(CHARINDEX(' ', C.NOMBRE)-1))) ='' THEN '' 
+WHEN (left(rtrim(ltrim(C.NOMBRE)), CHARINDEX(' ', C.NOMBRE))) = '' THEN '' -- CUANDO SEA VACIO
+WHEN (left(rtrim(ltrim(C.NOMBRE)), CHARINDEX(' ', C.NOMBRE))) != '' THEN (substring(C.NOMBRE, CHARINDEX(' ', C.NOMBRE)+1, len(C.NOMBRE)-(CHARINDEX(' ', C.NOMBRE)-1)))
+END AS 'SEGUNDO NOMBRE', 
+
+
+ CAST(DAY(C.FECNAC) AS VARCHAR(2)) AS DIA, CAST(MONTH(C.FECNAC) AS VARCHAR(2)) AS MES, CAST(YEAR(C.FECNAC) AS VARCHAR(4)) AS ANO,
+  UPPER (ISNULL(C.MAIL, '')) AS MAIL,'9' AS 'CODIGO',
+    CASE   
+      WHEN LEN(C.FONOACT) = 8 THEN C.FONOACT
+	  WHEN LEN(C.FONOACT) = 7 THEN '9'+C.FONOACT
+      ELSE substring(C.FONOACT, LEN(C.FONOACT)-7, len(C.FONOACT))
+   END AS 'TELEFONO',
+  C.FONOACT,
+
+
+                         A.ANO_MAT, A.PERIODO_MAT, '$'+ REPLACE (CAST (FLOOR (CD.MONTO) AS MONEY),'.00','') AS 'MONTO' , 
+CAST(DAY(CD.FECCANCEL) AS VARCHAR(2)) + '-' + CAST(MONTH(CD.FECCANCEL) AS VARCHAR(2)) + '-' + CAST(YEAR(CD.FECCANCEL) AS VARCHAR(4)) AS FECHADEPAGO, CD.FECCANCEL,
+J.DESCRIPCION AS 'JORNADA REAL'
+FROM           [CIISA].[UmasnetPruebas].[dbo].MT_CLIENT AS C LEFT OUTER JOIN
+                         [CIISA].[UmasnetPruebas].[dbo].MT_ALUMNO AS A ON C.CODCLI = A.RUT LEFT OUTER JOIN
+                         [CIISA].[UmasnetPruebas].[dbo].MT_CARRER AS CA ON A.CODCARPR = CA.CODCARR LEFT OUTER JOIN
+                         [CIISA].[UmasnetPruebas].[dbo].RA_JORNADA AS J ON A.JORNADA = J.JORNADA LEFT OUTER JOIN
+						[CIISA].[UmasnetPruebas].[dbo].MT_CTADOC AS CD ON C.CODCLI = CD.CODCLI AND A.CODCARPR = CD.CODCARR LEFT OUTER JOIN
+                        [CIISA].[UmasnetPruebas].[dbo].MT_ITEM AS I ON CD.ITEM = I.CODITEM
+WHERE        (I.CODITEM = '11') AND A.ANO_MAT=2019 AND CD.FECCANCEL>='20181201' --and C.CODCLI ='15796568'
+
+
+
+*/
+
+
+
     function TNEPRUEBA($con)
     {
 
@@ -14,9 +64,55 @@ class UMAS
         $sWhere = " WHERE a.RUT=c.CODCLI
         and a.CODCARPR=car.CODCARR 
         and A.ANO_MAT=2019 ";
-           
+        
+        $excel=" SELECT DISTINCT 
+        '13' AS REGION,'REPUBLICA' AS SEDE,
+        ISNULL((SELECT REPLACE(vch_NombreCarr,'CONTINUIDAD','')  FROM [CIISA].[Ministerio].[dbo].[tbl_NombreCarreras] WHERE A.CODCARPR=vch_CodCarrUmas),'S  C') AS 'CARRERA',
+          CASE   
+              WHEN A.JORNADA = 'D' OR A.JORNADA= 'V' THEN UPPER (J.DESCRIPCION)
+              WHEN A.JORNADA = 'O' THEN 'VESPERTINA'
+              ELSE 'S J'
+           END AS 'JORNADA',
+            '162' AS RBD, C.CODCLI AS RUT, C.DIG,
+        C.PATERNO, C.MATERNO,
+        CASE  
+        WHEN (left(rtrim(ltrim(C.NOMBRE)), CHARINDEX(' ', C.NOMBRE))) = '' THEN (substring(C.NOMBRE, CHARINDEX(' ', C.NOMBRE)+1, len(C.NOMBRE)-(CHARINDEX(' ', C.NOMBRE)-1))) -- CUANDO ESTE VACIO MUESTRA EL SEGUNDO NOMBRE
+        WHEN (left(rtrim(ltrim(C.NOMBRE)), CHARINDEX(' ', C.NOMBRE))) != '' THEN (left(rtrim(ltrim(C.NOMBRE)), CHARINDEX(' ', C.NOMBRE))) -- CUANDO NO SEA VACIO MUESTRA EL PRIMER NOMBRE
+        END 'PRIMER_NOMBRE',
+        CASE
+        WHEN (substring(C.NOMBRE, CHARINDEX(' ', C.NOMBRE)+1, len(C.NOMBRE)-(CHARINDEX(' ', C.NOMBRE)-1))) ='' THEN '' 
+        WHEN (left(rtrim(ltrim(C.NOMBRE)), CHARINDEX(' ', C.NOMBRE))) = '' THEN '' -- CUANDO SEA VACIO
+        WHEN (left(rtrim(ltrim(C.NOMBRE)), CHARINDEX(' ', C.NOMBRE))) != '' THEN (substring(C.NOMBRE, CHARINDEX(' ', C.NOMBRE)+1, len(C.NOMBRE)-(CHARINDEX(' ', C.NOMBRE)-1)))
+        END AS 'SEGUNDO_NOMBRE', 
+        
+        
+         CAST(DAY(C.FECNAC) AS VARCHAR(2)) AS DIA, CAST(MONTH(C.FECNAC) AS VARCHAR(2)) AS MES, CAST(YEAR(C.FECNAC) AS VARCHAR(4)) AS ANO,
+          UPPER (ISNULL(C.MAIL, '')) AS MAIL,'9' AS 'CODIGO',
+            CASE   
+              WHEN LEN(C.FONOACT) = 8 THEN C.FONOACT
+              WHEN LEN(C.FONOACT) = 7 THEN '9'+C.FONOACT
+              ELSE substring(C.FONOACT, LEN(C.FONOACT)-7, len(C.FONOACT))
+           END AS 'TELEFONO',
+          C.FONOACT,
+        
+        
+                                 A.ANO_MAT, A.PERIODO_MAT, '$'+ REPLACE (CAST (FLOOR (CD.MONTO) AS MONEY),'.00','') AS 'MONTO' , 
+        CAST(DAY(CD.FECCANCEL) AS VARCHAR(2)) + '-' + CAST(MONTH(CD.FECCANCEL) AS VARCHAR(2)) + '-' + CAST(YEAR(CD.FECCANCEL) AS VARCHAR(4)) AS FECHADEPAGO, CONVERT(VARCHAR, CD.FECCANCEL, 20) AS FECCANCEL,
+        J.DESCRIPCION AS 'JORNADA_REAL'
+        FROM           [CIISA].[UmasnetPruebas].[dbo].MT_CLIENT AS C LEFT OUTER JOIN
+                                 [CIISA].[UmasnetPruebas].[dbo].MT_ALUMNO AS A ON C.CODCLI = A.RUT LEFT OUTER JOIN
+                                 [CIISA].[UmasnetPruebas].[dbo].MT_CARRER AS CA ON A.CODCARPR = CA.CODCARR LEFT OUTER JOIN
+                                 [CIISA].[UmasnetPruebas].[dbo].RA_JORNADA AS J ON A.JORNADA = J.JORNADA LEFT OUTER JOIN
+                                [CIISA].[UmasnetPruebas].[dbo].MT_CTADOC AS CD ON C.CODCLI = CD.CODCLI AND A.CODCARPR = CD.CODCARR LEFT OUTER JOIN
+                                [CIISA].[UmasnetPruebas].[dbo].MT_ITEM AS I ON CD.ITEM = I.CODITEM
+        WHERE        (I.CODITEM = '11') AND A.ANO_MAT=2019 AND CD.FECCANCEL>='20181201' 
+        
+        ";
 
-        $sql = " $sSelect $sFrom $sWhere ";
+
+       /*  $sql = " $sSelect $sFrom $sWhere "; */
+
+       $sql = $excel;
 
         $result = sqlsrv_query($con, $sql, array(), array("Scrollable" => 'static'));
 

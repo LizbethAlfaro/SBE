@@ -111,17 +111,43 @@ if ($numrows>0){
 
  
  
-<td>CIUDADACT </td>
-<td>CODSEDE </td>
+<td>REGION </td>
+
+<td>SEDE </td>
+
+<td>CARRERA </td>
 <td>JORNADA </td>
-<td>CODCLI </td>
+<td>RBD </td>
+<td>RUT </td>
 <td>DIG </td>
-<td>NOMBRE </td>
 <td>PATERNO </td>
 <td>MATERNO </td>
-<td>FECNAC </td>
-<td>NOMBRE_L </td>
+<td>PRIMER NOMBRE </td>
+<td>SEGUNDO NOMBRE </td>
+<td>DIA </td>
+<td>MES</td>
+<td>ANO </td>
 <td>MAIL </td>
+<td>CODIGO </td>
+
+<td>TELEFONO </td>
+
+<td>FONOACT</td>
+
+<td>ANO_MAT </td>
+
+<td>PERIODO_MAT </td>
+
+<td>MONTO</td>
+
+<td>FECHADEPAGO </td>
+
+<td>FECCANCEL </td>
+
+<td>JORNADA REAL </td>
+
+
+
 
  
 </tr>
@@ -132,18 +158,38 @@ if ($numrows>0){
  
 while ($row=sqlsrv_fetch_array($result)){
 
- 
-$CIUDADACT = $row['CIUDADACT'];
-$CODSEDE = $row['CODSEDE'];
+
+    $REGION = $row['REGION']; 
+    
+$SEDE = $row['SEDE'];
+
+$CARRERA = $row['CARRERA'];
 $JORNADA = $row['JORNADA'];
-$CODCLI = $row['CODCLI'];
+$RBD = $row['RBD'];
+$RUT = $row['RUT'];
 $DIG = $row['DIG'];
-$NOMBRE = $row['NOMBRE'];
 $PATERNO = $row['PATERNO'];
 $MATERNO = $row['MATERNO'];
-$FECNAC = date('d-m-Y', strtotime($row['FECHA']));
-$NOMBRE_L = $row['NOMBRE_L'];
+$PRIMER_NOMBRE = $row['PRIMER_NOMBRE'];
+$SEGUNDO_NOMBRE = $row['SEGUNDO_NOMBRE'];
+$DIA = $row['DIA'];
+$MES = $row['MES'];
+$ANO = $row['ANO'];
 $MAIL = $row['MAIL'];
+$CODIGO = $row['CODIGO'];
+$TELEFONO = $row['TELEFONO'];
+$FONOACT = $row['FONOACT'];
+$ANO_MAT = $row['ANO_MAT'];
+$PERIODO_MAT = $row['PERIODO_MAT'];
+$MONTO = $row['MONTO'];
+$FECHADEPAGO = $row['FECHADEPAGO'];
+$FECCANCEL = $row['FECCANCEL'];
+$JORNADA_REAL = $row['JORNADA_REAL'];
+
+
+
+/* $FECNAC = date('d-m-Y', strtotime($row['FECHA'])); */
+
 
  
 
@@ -161,28 +207,38 @@ $MAIL = $row['MAIL'];
 
  
  
-<td><?php echo $CIUDADACT; ?></td>
-<td><?php echo $CODSEDE; ?></td>
+<td><?php echo $REGION; ?></td>
+<td><?php echo $SEDE;?></td>
+<td><?php echo $CARRERA; ?></td>
 <td><?php echo $JORNADA; ?></td>
-<td><?php echo $CODCLI; ?></td>
+<td><?php echo $RBD; ?></td>
+<td><?php echo $RUT; ?></td>
 <td><?php echo $DIG; ?></td>
-<td><?php echo $NOMBRE; ?></td>
 <td><?php echo $PATERNO; ?></td>
 <td><?php echo $MATERNO; ?></td>
-<td><?php echo $FECNAC; ?></td>
-<td><?php echo $NOMBRE_L; ?></td>
+<td><?php echo $PRIMER_NOMBRE; ?></td>
+<td><?php echo $SEGUNDO_NOMBRE; ?></td>
+<td><?php echo $DIA; ?></td>
+<td><?php echo $MES; ?></td>
+<td><?php echo $ANO; ?></td>
+
 <td><?php echo $MAIL; ?></td>
+<td><?php echo $CODIGO; ?></td>
+<td><?php echo $TELEFONO; ?></td>
+<td><?php echo $FONOACT; ?></td>
+
+<td><?php echo $ANO_MAT; ?></td>
+<td><?php echo $PERIODO_MAT; ?></td>
+<td><?php echo $MONTO; ?></td>
+<td><?php echo $FECHADEPAGO; ?></td>
+
+<td><?php echo $FECCANCEL; ?></td>
+<td><?php echo $JORNADA_REAL; ?></td>
+
+
 
  
 
- 
-
-
- 
-
-
- 
- 
 
  
 </tr>
@@ -195,18 +251,6 @@ $MAIL = $row['MAIL'];
 
  
 ?>
-
- 
- 
-
- 
- 
-
- 
- 
-
- 
- 
 
  
 </table>
